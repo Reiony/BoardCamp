@@ -9,7 +9,6 @@ export async function gamesSchemaValidation(req, res, next) {
         return res.status(400).send(verifyErrors);
      }
      const gameAlreadyExists = await connection.query("SELECT * FROM games WHERE name=$1;",[game.name]);
-     console.log(gameAlreadyExists);
      if (gameAlreadyExists.rowCount!==0){
         return res.status(409).send({message:"Game Already Exists. Try to register another game"});
      }
