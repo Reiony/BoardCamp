@@ -15,7 +15,8 @@ export async function validateCustomerSchema(req, res, next) {
     [customer.cpf]
   );
 
-  if (cpfAlreadyExists.rowCount !== 0) {
+  if (cpfAlreadyExists.rowCount !== 0 &&
+    cpfAlreadyExists.rows[0].id !== Number(req.params.id)) {
     return res
       .status(409)
       .send({ message: "Conflict: CPF is already in use." });
